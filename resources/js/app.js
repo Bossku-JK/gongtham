@@ -13,7 +13,11 @@ import locale from 'element-ui/lib/locale/lang/en'
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI, { locale })
 import BootstrapVue from 'bootstrap-vue'
+import VueSweetalert2 from 'vue-sweetalert2';
 // axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api`
+import 'sweetalert2/dist/sweetalert2.min.css';
+
+Vue.use(VueSweetalert2);
 Vue.use(BootstrapVue)
 // app.js
 import 'bootstrap/dist/css/bootstrap.css'

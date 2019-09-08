@@ -180,7 +180,10 @@
 </el-form>
 <el-button style="margin-top: 12px;" @click="back" v-if="this.active > 1">กลับ</el-button>
 <el-button style="margin-top: 12px;" @click="next" v-if="this.active < 3 " v-bind:disabled="shownext">ถัดไป</el-button>
-<el-button style="margin-top: 12px;" @click="submitdata()" v-if="this.active == 3" >ส่งข้อมูล</el-button>
+<el-button style="margin-top: 12px;" @click="submitdata()" v-if="this.active == 3" v-bind:disabled="spinner">
+   
+   <b-spinner small label="Small Spinner" v-if="spinner"></b-spinner>
+  ส่งข้อมูล</el-button>
     <!-- {{this.ruleForm.snr}}
       {{this.show}} -->
        <!-- {{this.ruleForm.fullname.length}}  -->
@@ -223,6 +226,7 @@ import { ModelListSelect } from 'vue-search-select'
         },
         show:true,
         shownext:true,
+        spinner:false,
         form: {
          
           },
@@ -387,6 +391,8 @@ import { ModelListSelect } from 'vue-search-select'
           if (this.active-- < 1) this.active == 1;
       },
            submitdata(){
+this.spinner = true;
+             
                 let formData = new FormData();
                     formData.append('ss',this.ruleForm.ss);
                     formData.append('fullname',this.ruleForm.fullname);
@@ -418,7 +424,11 @@ import { ModelListSelect } from 'vue-search-select'
                 axios.post('/api/sheet',formData,{  headers: {
         'Content-Type': 'multipart/form-data'
     }}).then(response => {
-                   console.log(response);
+                  this.showAlert()
+
+                    setTimeout(() => window.location.href = "/", 10000);
+                  
+    // this.spinner = false;
                 });
             },
        submitForm(formName) {
@@ -433,7 +443,15 @@ import { ModelListSelect } from 'vue-search-select'
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
-      }
+      },
+       showAlert(){
+            // Use sweetalert2
+            this.$swal(
+               'ส่งเอกสาร!',
+  'ให้สำนักงานแม่กองธรรมแล้วรอเจ้าหน้าที่ตรวจสอบ!!',
+  'success');
+        }
+        
     },
        mounted() {
             //  this.selectsnr();

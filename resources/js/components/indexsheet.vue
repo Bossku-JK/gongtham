@@ -186,7 +186,7 @@
           },
           { key: 'actions', label: 'Actions' }
         ],
-        totalRows: 1,
+        totalRows: 6,
         currentPage: 1,
         perPage: 5,
         pageOptions: [5, 10, 15],

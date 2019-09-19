@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 
 Route::get('/snr/all', 'SnrController@getAll');
 Route::post('/sheet', 'GongthamSheetInfoController@store');
+
+Route::post('/generatepdf', 'InfoschoolController@generatepdf');
 Route::get('/ss/fitter/{snr_id}', 'SsController@getid');
 
 Route::get('sheet/data', 'GongthamSheetInfoController@sheetdata');
@@ -22,7 +24,7 @@ Route::get('sheet/data', 'GongthamSheetInfoController@sheetdata');
 Route::get('sheet/show/{id}', 'GongthamSheetInfoController@sheetshow');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-    
+
 
 });
 Route::group([

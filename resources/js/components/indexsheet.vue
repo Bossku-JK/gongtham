@@ -2,6 +2,8 @@
   <b-container fluid>
     <!-- User Interface controls -->
     <b-row>
+
+
       <b-col lg="6" class="my-1">
         <b-form-group
           label="Sort"
@@ -67,7 +69,7 @@
       </b-col>
 
       <b-col lg="6" class="my-1">
-        <!-- <b-form-group
+        <b-form-group
           label="Filter On"
           label-cols-sm="3"
           label-align-sm="right"
@@ -79,7 +81,7 @@
             <b-form-checkbox value="age">Age</b-form-checkbox>
             <b-form-checkbox value="isActive">Active</b-form-checkbox>
           </b-form-checkbox-group>
-        </b-form-group> -->
+        </b-form-group>
       </b-col>
 
       <b-col sm="5" md="6" class="my-1">
@@ -130,6 +132,8 @@
       :sort-direction="sortDirection"
       @filtered="onFiltered"
     >
+
+
       <template v-slot:cell(name)="row">
         {{ row.value.first }} {{ row.value.last }}
       </template>
@@ -138,12 +142,12 @@
         <!-- <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
           Info modal
         </b-button> -->
-         <b-button :href="'view/'+row.item.id">ตรวจสอบข้อมูล</b-button>
-             <b-button :href="'view/'+row.item.id">พิมพ์เอกสารยืนยัน</b-button>
+         <b-button :href="'sheet/view/'+row.item.id">ตรวจสอบข้อมูล</b-button>
+             <b-button :href="'sheet/view/'+row.item.id">พิมพ์เอกสารยืนยัน</b-button>
          <!-- <b-button size="sm" @click="row.toggleDetails">
           {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
         </b-button> -->
-     
+
       </template>
 
       <template v-slot:row-details="row">
@@ -159,7 +163,9 @@
     <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
       <pre>{{ infoModal.content }}</pre>
     </b-modal>
+
   </b-container>
+
 </template>
 
 <script>
@@ -167,7 +173,7 @@
     data() {
       return {
         items: [
-        
+
         ],
         fields: [
           { key: 'ss_id', label: 'รหัสสนามสอบ', sortable: true, sortDirection: 'desc' },
@@ -175,23 +181,23 @@
            { key: 'position', label: 'ตำแหน่ง', sortable: true, class: 'text-center' },
             { key: 'phone', label: 'เบอร์โทรศัพท์', sortable: true, class: 'text-center' },
                { key: 'created_at', label: 'ส่งเมื่อ', sortable: true, class: 'text-center' },
-            
+
           {
             key: 'isActive',
             label: 'is Active',
-           
+
             sortable: true,
             sortByFormatted: true,
             filterByFormatted: true
           },
           { key: 'actions', label: 'Actions' }
         ],
-        totalRows: 6,
+        totalRows: '',
         currentPage: 1,
-        perPage: 5,
-        pageOptions: [5, 10, 15],
-        sortBy: '',
-        sortDesc: false,
+        perPage: 25,
+        pageOptions: [5, 10, 15,30,100],
+        sortBy: 'created_at',
+        sortDesc: true,
         sortDirection: 'asc',
         filter: null,
         filterOn: [],
@@ -220,13 +226,18 @@
     mounted() {
       // Set the initial number of items
       this.totalRows = this.items.length
+
     },
     methods: {
         sheetload(){
    axios.get('../api/sheet/data')
     .then(response => {
       this.items = response.data
-    
+       this.totalRows = this.items.length
+    //    console.log(this.totalRows);
+    //   this.totalRows = response.length
+
+
     })
     .catch(error => {
       console.log(error)

@@ -14,7 +14,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI, { locale })
 import BootstrapVue from 'bootstrap-vue'
 import VueSweetalert2 from 'vue-sweetalert2';
-// axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api`
+axios.defaults.baseURL = `${process.env.MIX_APP_URL}`
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 Vue.use(VueSweetalert2);
@@ -37,7 +37,10 @@ import 'vue-search-select/dist/VueSearchSelect.css'
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('sheetindex', require('./components/indexsheet.vue').default);
 Vue.component('sheetshow', require('./components/showsheet.vue').default);
+Vue.component('shoolinfo', require('./components/CreateInfoshool.vue').default);
+
 /**
+ *
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.

@@ -14,8 +14,9 @@
 Route::get('/', function () {
     return view('sheet.create');
 });
-
+Route::get('/infoshool/create', 'InfoschoolController@create');
 Route::get('/sheet/create', 'GongthamSheetInfoController@create');
+
 Auth::routes();
    // ** admin group
    Route::group([
